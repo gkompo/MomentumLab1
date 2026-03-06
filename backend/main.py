@@ -3,10 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import users, simulations, subscriptions
 
-# Force drop tables for dev environment to ensure new V2 schema applies correctly
-Base.metadata.drop_all(bind=engine)
-
-# Create database tables
+# Removed drop_all to prevent data loss on Railway reboots
+# Create database tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -17,7 +15,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],
+    allow_origins=["*"], # Allow Vercel and local deployments
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
