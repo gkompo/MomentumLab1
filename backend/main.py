@@ -1,4 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+import traceback
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import users, simulations, subscriptions
@@ -12,6 +14,13 @@ app = FastAPI(
     description="Quantitative Momentum Research Platform API",
     version="1.0.0"
 )
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    return JSONResponse(
+        status_code=500,
+        content={"message": "Internal Server Error", "details": str(exc), "traceback": traceback.format_exc()}
+    )
 
 app.add_middleware(
     CORSMiddleware,
