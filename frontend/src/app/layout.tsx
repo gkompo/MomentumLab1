@@ -37,6 +37,7 @@ export default function RootLayout({
             <p className="text-xs">
               Research Use Only. MomentumLab1 does not provide investment advice, financial advice, trading signals, or recommendations to buy or sell securities.
             </p>
+          </div>
         </footer>
         <Analytics />
       </body>
