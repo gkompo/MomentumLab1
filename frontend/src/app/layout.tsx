@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import Link from 'next/link'
 import { Navigation } from '@/components/Navigation'
+import { Analytics } from '@vercel/analytics/next'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -36,8 +37,8 @@ export default function RootLayout({
             <p className="text-xs">
               Research Use Only. MomentumLab1 does not provide investment advice, financial advice, trading signals, or recommendations to buy or sell securities.
             </p>
-          </div>
         </footer>
+        <Analytics />
       </body>
     </html>
   )
